@@ -29,3 +29,9 @@ rsync "${RSYNC_ARGS[@]}" "$SRC/bash/" "$XDG_CONFIG_HOME/bash/"
 rm -f "$HOME/.bashrc"
 ln -sf "$XDG_CONFIG_HOME/bash/bashrc" "$HOME/.bashrc"
 
+rsync "${RSYNC_ARGS[@]}" "$SRC/zsh/" "$XDG_CONFIG_HOME/zsh/"
+rm -f "$HOME/"{.zshrc,.zshenv}
+ln -sf "$XDG_CONFIG_HOME/zsh/zshrc" "$HOME/.zshrc"
+[[ ! -f "$XDG_CONFIG_HOME/zsh/zshenv" ]] || \
+	ln -sf "$XDG_CONFIG_HOME/zsh/zshenv" "$HOME/.zshenv"
+
