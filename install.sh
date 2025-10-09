@@ -43,3 +43,6 @@ nvim --headless +q
 
 # tmux config
 rsync "${RSYNC_ARGS[@]}" "$SRC/tmux/" "$XDG_CONFIG_HOME/tmux/"
+
+# install fzf
+bash "$SRC/fzf/install.sh"
