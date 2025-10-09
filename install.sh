@@ -4,6 +4,8 @@
 # set to "1" for debug info
 DEBUG=${DEBUG:-}
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
+# override using env var to specify alternate vim config
+NVIM_CONFIG=${NVIM_CONFIG:-astronvim}
 
 set -eo pipefail
 SRC="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
@@ -34,4 +36,8 @@ rm -f "$HOME/"{.zshrc,.zshenv}
 ln -sf "$XDG_CONFIG_HOME/zsh/zshrc" "$HOME/.zshrc"
 [[ ! -f "$XDG_CONFIG_HOME/zsh/zshenv" ]] || \
 	ln -sf "$XDG_CONFIG_HOME/zsh/zshenv" "$HOME/.zshenv"
+
+rsync "${RSYNC_ARGS[@]}" "$SRC/nvim/$NVIM_CONFIG/" "$XDG_CONFIG_HOME/nvim/"
+# do headless nvim initialization
+nvim --headless +q
 
