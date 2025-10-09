@@ -36,6 +36,8 @@ rm -f "$HOME/"{.zshrc,.zshenv}
 ln -sf "$XDG_CONFIG_HOME/zsh/zshrc" "$HOME/.zshrc"
 [[ ! -f "$XDG_CONFIG_HOME/zsh/zshenv" ]] || \
 	ln -sf "$XDG_CONFIG_HOME/zsh/zshenv" "$HOME/.zshenv"
+# run zsh for user to install plugins
+zsh -i -c 'source ~/.zshrc; exit 0'
 
 rsync "${RSYNC_ARGS[@]}" "$SRC/nvim/$NVIM_CONFIG/" "$XDG_CONFIG_HOME/nvim/"
 # do headless nvim initialization
