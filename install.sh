@@ -41,3 +41,5 @@ rsync "${RSYNC_ARGS[@]}" "$SRC/nvim/$NVIM_CONFIG/" "$XDG_CONFIG_HOME/nvim/"
 # do headless nvim initialization
 nvim --headless +q
 
+# tmux config
+rsync "${RSYNC_ARGS[@]}" "$SRC/tmux/" "$XDG_CONFIG_HOME/tmux/"
