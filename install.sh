@@ -62,7 +62,7 @@ fi
 if [[ " ${COMPONENTS[*]} " =~ " nvim " ]]; then
 	rsync "${RSYNC_ARGS[@]}" "$SRC/nvim/$NVIM_CONFIG/" "$XDG_CONFIG_HOME/nvim/"
 	# do headless nvim initialization
-	nvim --headless +q
+	nvim --headless -c "luafile $XDG_CONFIG_HOME/nvim/headless_install.lua" +q
 fi
 
 # tmux config
