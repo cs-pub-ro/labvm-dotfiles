@@ -20,6 +20,7 @@ zpm if vte load zpm-zsh/vte
 
 ## Spaceship theme
 export SPACESHIP_ROOT="$HOME/.config/zsh/spaceship"
+export SPACESHIP_CONFIG="$HOME/.config/zsh/spaceship.zsh"
 if [[ ! -f "$SPACESHIP_ROOT/spaceship.zsh" ]]; then
   mkdir -p "$SPACESHIP_ROOT"
 	git clone --depth=1 "https://github.com/spaceship-prompt/spaceship-prompt.git" "$SPACESHIP_ROOT"
