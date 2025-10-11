@@ -23,4 +23,8 @@ return {
       },
     },
   },
+  -- disable nvim-dap
+  {
+    "jay-babu/mason-nvim-dap.nvim", enabled = false,
+  }
 }
