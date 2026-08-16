@@ -16,27 +16,17 @@ return {
           },
         },
       })
-      if is_linux_arm then opts.servers = require("astrocore").list_insert_unique(opts.servers, { "clangd" }) end
+      if not is_linux_arm then opts.servers = require("astrocore").list_insert_unique(opts.servers, { "clangd" }) end
     end,
   },
   {
-    "nvim-treesitter/nvim-treesitter",
-    optional = true,
-    opts = function(_, opts)
-      if opts.ensure_installed ~= "all" then
-        opts.ensure_installed =
-          require("astrocore").list_insert_unique(opts.ensure_installed, { "cpp", "c", "objc", "cuda", "proto" })
-      end
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    optional = true,
-    opts = function(_, opts)
-      if not is_linux_arm then
-        opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "clangd" })
-      end
-    end,
+    "AstroNvim/astrocore",
+    ---@type AstroCoreOpts
+    opts = {
+      treesitter = {
+        ensure_installed = { "cpp", "c", "objc", "cuda", "proto", },
+      },
+    },
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -45,6 +35,15 @@ return {
       local tools = { }
       if not is_linux_arm then table.insert(tools, "clangd") end
       opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, tools)
+    end,
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    optional = true,
+    opts = function(_, opts)
+      if not is_linux_arm then
+        opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "clangd" })
+      end
     end,
   },
 }

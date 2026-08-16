@@ -1,7 +1,8 @@
 FROM debian:13
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        zsh git rsync wget build-essential tmux fzf ca-certificates \
+        build-essential unzip git rsync wget curl python3 python3-pip \
+        python3-venv zsh tmux fzf fd-find ripgrep ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 # latest official neovim release (prebuilt, self-contained)

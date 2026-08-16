@@ -44,12 +44,13 @@ return {
     },
     -- customize how language servers are attached
     handlers = {
-      -- a function without a key is simply the default handler, functions take two parameters, the server name and the configured options table for that server
-      -- function(server, opts) require("lspconfig")[server].setup(opts) end
+      -- the `"*"` key is the default handler, functions take the server name
+      -- use `vim.lsp.config[server]` for the resolved server options table
+      -- ["*"] = function(server) vim.lsp.enable(server) end
 
-      -- the key is the server that is being setup with `lspconfig`
+      -- other keys are the server name being set up
       -- rust_analyzer = false, -- setting a handler to false will disable the set up of that language server
-      -- pyright = function(_, opts) require("lspconfig").pyright.setup(opts) end -- or a custom handler function can be passed
+      -- pyright = function(server) vim.lsp.enable(server) end -- or a custom handler function can be passed
     },
     -- Configure buffer local auto commands to add when attaching a language server
     autocmds = {

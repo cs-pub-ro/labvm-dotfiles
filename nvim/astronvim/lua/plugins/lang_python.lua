@@ -4,20 +4,13 @@
 ---@type LazySpec
 return {
   {
-    "nvim-treesitter/nvim-treesitter",
-    optional = true,
-    opts = function(_, opts)
-      if opts.ensure_installed ~= "all" then
-        opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "python", "toml" })
-      end
-    end,
-  },
-  {
-    "jay-babu/mason-null-ls.nvim",
-    optional = true,
-    opts = function(_, opts)
-      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "black", "isort" })
-    end,
+    "AstroNvim/astrocore",
+    ---@type AstroCoreOpts
+    opts = {
+      treesitter = {
+        ensure_installed = { "python", "yaml", "toml" }
+      },
+    },
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
