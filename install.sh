@@ -58,6 +58,8 @@ if [[ " ${COMPONENTS[*]} " =~ " zsh " ]]; then
 fi
 
 if [[ " ${COMPONENTS[*]} " =~ " nvim " ]]; then
+	# first, install latest nvim for user (in ~/.local/bin)
+	"$SRC/scripts/install-nvim.sh"
 	# vanilla nvim (no config) + one dir per alternative config
 	mkdir -p "$XDG_CONFIG_HOME/nvim"
 	rsync "${RSYNC_ARGS[@]}" "$SRC/nvim/lazyvim/" "$XDG_CONFIG_HOME/nvim-lazyvim/"
