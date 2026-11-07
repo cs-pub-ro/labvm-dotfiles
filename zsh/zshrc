@@ -48,7 +48,6 @@ zpm load                      \
   mdumitru/fancy-ctrl-z,async                \
   zpm-zsh/zsh-history-substring-search,async \
   zsh-users/zsh-autosuggestions,async        \
-  zpm-zsh/fast-syntax-highlighting,async     \
   zpm-zsh/history-search-multi-word,async
 
 # persistent history settings
@@ -70,6 +69,9 @@ setopt hist_verify
 
 # add ~/.local/bin to PATH
 export PATH="$HOME/.local/bin:$PATH"
+
+### zsh-patina (syntax highlighting, replaces fast-syntax-highlighting)
+[ -x ~/.local/bin/zsh-patina ] && eval "$(~/.local/bin/zsh-patina activate)"
 
 ### Neovim config chooser
 # NVIM_APPNAME selects which ~/.config/nvim* dir nvim uses (vanilla = unset)

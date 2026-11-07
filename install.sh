@@ -48,6 +48,8 @@ if [[ " ${COMPONENTS[*]} " =~ " bash " ]]; then
 fi
 
 if [[ " ${COMPONENTS[*]} " =~ " zsh " ]]; then
+	# install zsh-patina (in ~/.local/bin) before first rc load
+	"$SRC/scripts/install-patina.sh"
 	rsync "${RSYNC_ARGS[@]}" "$SRC/zsh/" "$XDG_CONFIG_HOME/zsh/"
 	rm -f "$HOME/"{.zshrc,.zshenv}
 	ln -sf "$XDG_CONFIG_HOME/zsh/zshrc" "$HOME/.zshrc"
