@@ -1,0 +1,4 @@
+-- Synchronously install all plugins (Lazy, Mason, TreeSitter)
+vim.cmd("Lazy! install all")
+vim.cmd("Lazy load all")
+vim.cmd("MasonToolsUpdateSync")
