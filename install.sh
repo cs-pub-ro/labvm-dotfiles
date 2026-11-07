@@ -4,8 +4,6 @@
 # set to "1" for debug info
 DEBUG=${DEBUG:-}
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
-# override using env var to specify alternate vim config
-NVIM_CONFIG=${NVIM_CONFIG:-astronvim}
 # default components to install
 COMPONENTS=(fetch bash zsh nvim tmux fzf)
 COMP_OVERRIDE=()
@@ -60,9 +58,12 @@ if [[ " ${COMPONENTS[*]} " =~ " zsh " ]]; then
 fi
 
 if [[ " ${COMPONENTS[*]} " =~ " nvim " ]]; then
-	rsync "${RSYNC_ARGS[@]}" "$SRC/nvim/$NVIM_CONFIG/" "$XDG_CONFIG_HOME/nvim/"
-	# do headless nvim initialization
-	nvim --headless -c "luafile $XDG_CONFIG_HOME/nvim/headless_install.lua" +q
+	# vanilla nvim (no config) + one dir per alternative config
+	mkdir -p "$XDG_CONFIG_HOME/nvim"
+	rsync "${RSYNC_ARGS[@]}" "$SRC/nvim/lazyvim/" "$XDG_CONFIG_HOME/nvim-lazyvim/"
+	rsync "${RSYNC_ARGS[@]}" "$SRC/nvim/astronvim/" "$XDG_CONFIG_HOME/nvim-astronvim/"
+	# install the config chooser (function defined in the rc files)
+	install -m 755 "$SRC/scripts/lab-choose-nvim" "$HOME/.local/bin/lab-choose-nvim"
 fi
 
 # tmux config

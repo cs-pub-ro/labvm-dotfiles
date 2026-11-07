@@ -168,5 +168,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Neovim config chooser
+# NVIM_APPNAME selects which ~/.config/nvim* dir nvim uses (vanilla = unset)
+[ -f ~/.config/env.d/nvim.sh ] && source ~/.config/env.d/nvim.sh
+lab-choose-nvim() {
+  "$HOME/.local/bin/lab-choose-nvim" "$@" && \
+    [ -f ~/.config/env.d/nvim.sh ] && source ~/.config/env.d/nvim.sh
+}
+
 [ ! -f ~/.config/bash/config.local.sh ] || source ~/.config/bash/config.local.sh 2>/dev/null
 

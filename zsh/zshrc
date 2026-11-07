@@ -71,5 +71,13 @@ setopt hist_verify
 # add ~/.local/bin to PATH
 export PATH="$HOME/.local/bin:$PATH"
 
+### Neovim config chooser
+# NVIM_APPNAME selects which ~/.config/nvim* dir nvim uses (vanilla = unset)
+[ -f ~/.config/env.d/nvim.sh ] && source ~/.config/env.d/nvim.sh
+lab-choose-nvim() {
+  "$HOME/.local/bin/lab-choose-nvim" "$@" && \
+    [ -f ~/.config/env.d/nvim.sh ] && source ~/.config/env.d/nvim.sh
+}
+
 [ ! -f ~/.config/zsh/config.local.zsh ] || source ~/.config/zsh/config.local.zsh 2>/dev/null
 

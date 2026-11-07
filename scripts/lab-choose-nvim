@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Choose the active Neovim config.
+#
+# The choice is stored as NVIM_APPNAME in ~/.config/env.d/nvim.sh, which is
+# sourced by ~/.bashrc and ~/.zshrc. An rc-file function with the same name
+# also sources the file after every run, so the change applies to the
+# current session immediately.
+#
+# Usage: lab-choose-nvim [vanilla|lazyvim|astronvim|current|list]
+set -euo pipefail
+
+ENV_FILE="$HOME/.config/env.d/nvim.sh"
+CONFIGS=(vanilla lazyvim astronvim)
+
+current() {
+	if [ ! -f "$ENV_FILE" ]; then
+		echo "vanilla"
+		return
+	fi
+	. "$ENV_FILE"
+	echo "${NVIM_APPNAME:-vanilla}" | sed 's/^nvim-//'
+}
+
+case "${1:-current}" in
+	list)
+		cur="$(current)"
+		for c in "${CONFIGS[@]}"; do
+			printf '  %s %s\n' "$([ "$c" = "$cur" ] && echo '*' || echo ' ')" "$c"
+		done
+		;;
+	current)
+		current
+		;;
+	vanilla|lazyvim|astronvim)
+		if [ "$1" != vanilla ] && [ ! -d "$HOME/.config/nvim-$1" ]; then
+			echo "warning: ~/.config/nvim-$1 not found (has 'install.sh' been run?)" >&2
+		fi
+		mkdir -p "$(dirname "$ENV_FILE")"
+		if [ "$1" = vanilla ]; then
+			printf 'unset NVIM_APPNAME\n' > "$ENV_FILE"
+		else
+			printf 'export NVIM_APPNAME=nvim-%s\n' "$1" > "$ENV_FILE"
+		fi
+		echo "nvim config: $1"
+		;;
+	*)
+		echo "usage: lab-choose-nvim [vanilla|lazyvim|astronvim|current|list]" >&2
+		exit 1
+		;;
+esac
